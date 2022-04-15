@@ -1,0 +1,24 @@
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ISS</title>
+</head>
+<body>
+<iframe id="youtube_player" width="100%" height="100%" src="https://www.youtube.com/embed/0U9A06vrYXc?autoplay=1&mute=1&controls=0&fs=0&modestbranding=1&rel=0&enablejsapi=1" title="IIS video stream" frameborder="0"></iframe>
+<script type="text/javascript" >
+window.addEventListener("message", (event) => {
+  const data = JSON.parse(event.data);
+  if(data.event === "command"){
+    if(data.func == "pause"){
+      document.getElementById('youtube_player').contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*')
+    }else{
+      document.getElementById('youtube_player').contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*')
+    }
+  }
+}, false);
+
+</script>
+</body>
+</html>

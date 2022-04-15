@@ -1,0 +1,108 @@
+@font-face {
+    font-family: Roboto;
+    src: url("fonts/Roboto-Regular.ttf") format('truetype');
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #000;
+    font-family: Roboto;
+}
+
+#overlay  {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+#footer {
+	position: absolute;
+	top: 0;
+	color: #a7acb1;
+	font-size: 4em;
+	text-shadow: 0 0 .3rem #ffffff8a;
+	text-align: right;
+	padding: 0 10px 0 20px;
+	left: 0;
+	background: #00000094;
+	border-radius: 0 0 5px 0;
+}
+
+#footer > #clock, #footer > #temperature, #footer > .separator {
+    display: none;
+}
+
+body.clock #footer > #clock {
+    display: inline;
+}
+
+body.temp #footer > #temperature {
+    display: inline;
+}
+
+body.clock.temp #footer > .separator {
+    display: inline;
+}
+
+.icon {
+    background-color: rgba(198, 198, 198, 0.5);
+    position: absolute;
+    z-index: 2;
+    border-radius: 50%;
+    font-size: 50px;
+    line-height: 1;
+    box-shadow: 0px 0px 15px #ffffff59;
+    border: 2px solid #0000007a;
+    color: #2b2b2b;
+    display: none;
+    height: 3rem;
+    width: 3rem;
+    bottom: 10px;
+    right: 10px;
+}
+
+.pauseicon {
+    margin-top: 0.6rem;
+    margin-left: 0.7rem;
+    border-left: 0.5rem solid #fff;
+    border-right: 0.5rem solid #fff;
+    width: 20%;
+    height: 1.8rem;
+}
+
+body.paused .icon{
+	display: inline;
+}
+
+#carousel, #carousel > iframe, #overlay {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    z-index: 110;
+    border: 0 none;
+}
+
+#carousel > iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: 1;
+    visibility: none;
+    opacity: 0;
+    transition: opacity 0.5s, visibility 0.5s;
+}
+
+#carousel > iframe.previous{
+    z-index: 2 !important;
+
+}
+
+#carousel > iframe.active{
+    z-index: 3;
+    visibility: visible;
+    opacity: 1;
+}

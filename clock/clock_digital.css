@@ -1,0 +1,95 @@
+@font-face {
+  font-family: BPdots;
+  src: url("../fonts/BPdots.otf") format("opentype");
+}
+
+@font-face {
+  font-family: lego;
+  src: url("../fonts/legorama.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: led;
+  src: url("../fonts/TickingTimebombBB.ttf") format("truetype");
+}
+@font-face {
+	font-family: arcane;
+  src: url("../fonts/Arcane-Nine.otf") format("opentype");
+}
+
+html,
+body {
+  background-color: #000;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+body {
+  background-image: url("../img/black-paisley.jpg");
+  background-repeat: no-repeat, repeat;
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover;
+  text-shadow: 0px 0px 1rem #680000
+}
+clock {
+  font-family: arcane;
+  font-size: 28vw;
+  color: red;
+  display: flex;
+  justify-content: center;
+}
+
+clock.fade>* {
+  display: flex;
+}
+
+clock.fade>*>* {
+  display: inline-block;
+  width: .8em;
+  position: relative;
+}
+
+.hidden{
+  display: none !important;
+}
+
+clock.fade span {
+  display: block;
+  position: absolute;
+  width: 100%;
+  opacity: 0;
+  transition: opacity .4s;
+  text-align: center;
+}
+
+clock.fade span.active {
+  opacity: 100%;
+}
+.meridiem {
+  width: 5%;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 4vw;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 1rem;
+  height: 28vw;
+}
+.meridiem.pm {
+  justify-content: end;
+}
+
+.meridiem.pm .am {
+  display: none;
+}
+
+.meridiem.am .pm {
+  display: none;
+}

@@ -1,0 +1,234 @@
+@font-face {
+	font-family: Roboto;
+  src: url("../fonts/Roboto-Regular.ttf") format('truetype');
+}
+
+html,
+body {
+  background-color: #000;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+clock {
+  font-family: led;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.meridiem {
+  width: 5%;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 4vw;
+  display: flex;
+  flex-direction: column;
+  height: 30vw;
+}
+.meridiem.pm {
+  justify-content: end;
+}
+
+.meridiem.pm .am {
+  display: none;
+}
+
+.meridiem.am .pm {
+  display: none;
+}
+
+.flip-card {
+	background-color: transparent;
+	width: 100%;
+  height: calc(50% - 2px);
+	perspective: 1000px;
+  position: absolute;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.4s;
+  transform-style: preserve-3d;
+  transform-origin: bottom center;
+  transition-timing-function: ease-out;
+}
+.flip-card.reset .flip-card-inner{
+  transition: none !important;
+}
+.flip-card.flip .flip-card-inner {
+  transform: rotateX(-180deg) translateY(-5px);
+}
+.flip-card.flip{
+  z-index: 1;
+
+}
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  overflow: hidden;
+  background-image: linear-gradient(315deg, #2f2f2f -50%, #414141 74%);
+}
+
+.flip-card-front {
+  background-image: linear-gradient(315deg, #2f2f2f -50%, #414141 74%);
+  border-radius: 1rem 1rem 2px 2px;
+  line-height: 1;
+}
+
+.flip-card-back {
+  background-image: linear-gradient(315deg, #2f2f2f -50%, #414141 74%);
+  border-radius: 2px 2px 1rem 1rem;
+  transform: rotateY(180deg) rotate(180deg);
+  line-height: 0.05;
+}
+
+.digit::before, .digit::after{
+  position: absolute;
+  width: 4%;
+  height: 10%;
+  top: 40%;
+  border-radius: 30%;
+  background: radial-gradient(rgb(76, 76, 76) 0%, rgb(19, 19, 19) 100%);
+  z-index: 9;
+  transform: translateY(50%);
+  content: " ";
+  box-shadow: 3px 3px 4px #0000004f;
+}
+
+.separator {
+  font-size: 20vw;
+  margin-left: 1rem;
+}
+.digit::before{
+  left: 4%;
+}
+.digit::after{
+  right: 4%;
+}
+
+clock.flip {
+  border: 2px solid rgba(49, 49, 49, 0.57);
+  color: #ebebeb;
+  font-family: Roboto;
+  font-size: 32pt;
+  display: flex;
+  flex-direction: row;
+  padding: 0 1rem;
+  background: rgb(38,38,38);
+  background: linear-gradient(180deg, rgba(38,38,38,1) 0%, rgba(0,0,0,1) 50%, rgba(38,38,38,1) 100%);
+}
+
+clock.flip.carbon{
+  background-image: url("background.jpg");
+  background-repeat: no-repeat, repeat;
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover;
+}
+
+.digit {
+	width: 20%;
+	height: 30vw;
+	position: relative;
+	margin-left: 1rem;
+	font-size: 32vw;
+	text-align: center;
+  box-shadow: 6px 6px 10px #0000004f;
+  border-radius: 1rem;
+}
+.digit .top, .digit .bottom{
+  height: calc(50% - 1px);
+  line-height: 1;
+  overflow: hidden;
+}
+.digit .top{
+  border-radius: 1rem 1rem 2px 2px;
+  margin-bottom: 4px;
+  transform: translateZ(1px);
+}
+.digit .bottom{
+  border-radius: 2px 2px 1rem 1rem;
+  line-height: 0.05;
+}
+
+.top, .flip-card-front{
+  background-image: linear-gradient(315deg, #000000 -100%, #414141 74%);
+}
+.bottom, .flip-card-back{
+  background-image: linear-gradient(315deg, #000000 0%, #414141 104%);
+}
+
+clock.color1 {
+  background: #386641;
+}
+clock.color1.flip {
+  color: #6A994E;
+}
+clock.color1 .top, clock.color1 .flip-card-front, clock.color1 .bottom, clock.color1 .flip-card-back {
+  background: #F2E8CF;
+}
+
+
+clock.color2 {
+  background: #723D46;
+}
+clock.color2.flip {
+  color: #FFE1A8;
+}
+clock.color2 .top, clock.color2 .flip-card-front, clock.color2 .bottom, clock.color2 .flip-card-back {
+  background: #E26D5C;
+}
+
+
+clock.color3{
+  background: #233D4D;
+}
+clock.color3.flip {
+  color: #FE7F2D;
+}
+clock.color3 .top, clock.color3 .flip-card-front, clock.color3 .bottom, clock.color3 .flip-card-back {
+  background: #A1C181;
+}
+
+
+clock.color4 {
+  background: #687259;
+}
+clock.color4.flip {
+  color: #2b2b2b;
+}
+clock.color4 .top, clock.color4 .flip-card-front, clock.color4 .bottom, clock.color4 .flip-card-back {
+  background: #E6CEBC;
+}
+
+
+clock.color5 .top, clock.color5 .flip-card-front, clock.color5 .bottom, clock.color5 .flip-card-back {
+  background: rgb(224, 224, 224);
+}
+clock.color5{
+  background: linear-gradient(0deg, rgba(244,244,244,1) 0%, rgba(236,236,236,1) 40%, rgba(236,236,236,1) 60%, rgba(244,244,244,1) 100%);
+  color:rgba(17, 17, 17, 1)
+}
+clock.flip.color5 .digit::before, clock.flip.color5 .digit::after {
+  background: radial-gradient(rgb(244, 244, 244) 0%, rgb(221, 221, 221) 50%, rgb(204, 204, 204) 100%);
+}
+
+
+clock.color6 {
+  background: #274C77;
+}
+clock.color6.flip {
+  color: #E7ECEF;
+}
+clock.color6 .top, clock.color6 .flip-card-front, clock.color6 .bottom, clock.color6 .flip-card-back {
+  background: #A3CEF1;
+}

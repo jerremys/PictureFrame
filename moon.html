@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Raspberrypower</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Pragma" content="no-cache">
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            align-content: center;
+            text-align: center;
+            justify-content: center;
+        }
+
+        #overlay {
+            height: 90vh;
+            position: absolute;
+            width: auto;
+            align-self: center;
+        }
+
+        img {
+            height: 100%;
+        }
+
+        #shadow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        #shadow.flip {
+            transform: scaleX(-1);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="overlay">
+        <div id="shadow">
+            <svg width="100%" height="100%" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" id="shadow">
+                <g>
+                    <path id="moon_shadow" d="M 50 0 " fill="black" fill-opacity="0.7" />
+                </g>
+            </svg>
+        </div>
+        <img src="img/full-moon.jpg" />
+    </div>
+
+
+    <script type="text/javascript">
+
+        const updatePhase = function (phase) {
+            const shadow = document.getElementById("moon_shadow");
+            const shadowLayer = document.getElementById("shadow");
+            const maxSize = 117;
+            var coverage = (phase * 2) * maxSize;
+
+            if (coverage > maxSize) {
+                // After full moon
+                coverage -= maxSize;
+                shadowLayer.classList.add("flip");
+            } else {
+                shadowLayer.classList.remove('flip');
+            }
+            console.log("Moon phase: " + phase + ", coverage: " + coverage);
+
+            var att = "M 50 0 C -17 0 -17 100  50 100 C " + coverage + " 100 " + coverage + " 0 50 0";
+
+            shadow.setAttributeNS(null, "d", att);
+        };
+
+        window.addEventListener("message", (event) => {
+            const data = JSON.parse(event.data);
+            if (data.event === "command") {
+                if (data.func == "phase") {
+                    updatePhase(data.args);
+                }
+            }
+        }, false);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,684 @@
+@font-face {
+	font-family: Roboto;
+  src: url("../fonts/Roboto-Regular.ttf") format('truetype');
+}
+
+html,
+body {
+	padding: 0;
+	margin: 0;
+	height: 100%;
+	width: 100%;
+}
+
+img {
+	pointer-events: none;
+	filter: drop-shadow(2px 2px 4px #242424)
+}
+#text-description {
+	position: absolute;
+	top: 15%;
+	margin: auto 0;
+	left: 0;
+	font-size: 2rem;
+	font-family: Roboto;
+	color: #5c5c5c;
+	opacity: .8;
+	width: 100%;
+	text-transform: capitalize;
+}
+
+#text-description .details{
+	font-size: 1rem;
+	opacity: .5;
+}
+#weather-icons {
+	position: absolute;
+	top: -10px;
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+	right: 0;
+	left: 46px;
+	font-family: Roboto;
+}
+
+#weather-icons .pop{
+	margin-top: -18px;
+	opacity: .8;
+	font-size: .9rem;
+}
+
+#dailyChartContainer #weather-icons {
+	right: 34px;
+}
+
+#weather-icons div {
+	flex-grow: 1;
+	text-align: center;
+}
+#weather-icons img {
+	opacity: 0.7;
+}
+
+.canvasjs-chart-credit {
+	display: none;
+}
+
+#current {
+	position: absolute;
+	width: 100%;
+	left: 0;
+	height: 100vh;
+	overflow: hidden;
+}
+
+#current .container{
+	position: absolute;
+	width: 20%;
+	height: 100vh;
+	text-align: center;
+}
+
+#current .weather {
+	display: none;
+}
+
+#graphs {
+	position: absolute;
+	left: 20%;
+	width: 80%;
+	overflow: hidden;
+	height: 100vh;
+	z-index: 3;
+}
+
+
+/*** Cloudy ***/
+
+body.clouds .clouds, body.drizzle .clouds, body.thunderstorm .clouds, body.rain .clouds, body.snow .clouds  {
+	display: inherit;
+}
+
+body.day.clouds .sun {
+	box-shadow: 0 0 10px #adb03c, 0 0 60px #dfd652, 0 0 200px #ff0, inset 0 0 80px #ffff3c;
+}
+
+body .clouds, .cloud {
+	display: none;
+}
+
+.cloud:nth-child(1) {
+	display: inherit;
+	transform: scale(1.1) scaleX(-1) translateX(20%) translateY(50%);
+}
+
+body.thunderstorm .cloud:nth-child(2), body.rain .cloud:nth-child(2){
+	display: inherit;
+	transform: scale(0.8) translateY(200%);
+	animation: animateCloud 27s linear infinite;
+	opacity: .9;
+}
+body.thunderstorm .cloud:nth-child(3), body.rain .cloud:nth-child(3) {
+	display: inherit;
+	transform: scale(0.7) translateY(-40%);
+	animation: animateCloud 21s linear infinite;
+	opacity: .9;
+}
+body.thunderstorm {
+	background-color: #193642
+}
+body.thunderstorm .cloud:nth-child(4) {
+	display: inherit;
+	left: 20%;
+	top: 0;
+}
+body.thunderstorm .cloud:nth-child(5) {
+	display: inherit;
+	left: 50%;
+	top: 90%;
+	transform: scaleX(-1); 
+}
+
+@keyframes animateCloud {
+    0% {
+        margin-left: -100%;
+		opacity: .9;
+    }
+	80% {
+		opacity: .9;
+	}
+	90% {
+		opacity: .1;
+	}
+    100% {
+        margin-left: 20vw;
+		opacity: 0;
+    }
+}
+
+
+#current .clouds {
+	position: absolute;
+	top: 5vw;
+	width: 100%;
+	height: 8vw;
+	z-index: 3;
+}
+
+.cloud {
+	background: linear-gradient(180deg, rgb(226, 226, 226) 0%, rgb(226, 226, 226) 68%, rgb(174, 174, 174) 100%);
+	border-radius: 100px;
+	box-shadow: 0 8px 5px rgba(0, 0, 0, 0.1);
+	height: 100%;
+	position: absolute;
+	width: 100%;
+	filter: drop-shadow(2px 15px 14px #2424246e);
+	opacity: .93;
+}
+
+.cloud:after, .cloud:before {
+    background: rgb(226, 226, 226);
+	content: '';
+	position: absolute;
+	z-indeX: -1;
+}
+
+.cloud::after {
+	border-radius: 50%;
+	height: 65%;
+	left: 13%;
+	top: -30%;
+	width: 30%;
+	/* background: #ac1a1a; */
+	z-index: 1;
+}
+
+.cloud::before {
+	border-radius: 100%;
+	width: 50%;
+	height: 120%;
+	right: 15%;
+	top: -50%;
+	z-index: 2;
+}
+
+
+/** Thunderstorm **/
+body .lightning {
+	display: none;
+}
+
+body.thunderstorm .lightning {
+	display: inherit;
+}
+
+.lightning{
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	background-color: rgba(255, 255, 255, 0.74);
+	z-index: 2;
+	opacity: 0;
+}
+
+.lightning svg{
+		position: absolute;
+		top: 20vw;
+		left: 10%;
+		width: 150px;
+		height: 400px;
+		/* background-color: #f9f95f; */
+		transform: scale(1.4) scaleX(-1) rotatey(56deg);
+}
+.flashit{
+	animation: flash ease-out 7s infinite;
+	animation-delay: 2s;
+	}
+	
+	@keyframes flash {
+		from { opacity: 0; } 
+		92% { opacity: 0; }
+		93% { opacity: 0.6; }
+		94% { opacity: 0.2; }
+		96% { opacity: 1; } 
+		to { opacity: 0; }
+	}
+
+#current .sun {
+	border-radius: 50%;
+	height: 18vw;
+	width: 18vw;
+	margin: 20px auto;
+}
+
+
+/*** Day ***/
+
+body.day {
+	/*background-color: skyblue;*/
+	background-color: #aa82a7;
+}
+body.day .stem {
+	background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.25));
+}
+body.day .desc{
+	color: #00000085;
+}
+
+body.day .sun .crater {
+	display: none;
+	margin-left: 5%;
+}
+
+body.day .sun {
+	display: inline-block;
+	background: orange;
+	box-shadow: 0 0 10px orange, 0 0 60px orange, 0 0 200px yellow, inset 0 0 80px yellow;
+	z-index: 12;
+	z-index: -99;
+}
+
+
+/*** Night ***/
+body{
+	background-color: #533451;
+
+}
+body.night {
+}
+
+body.night .sun {
+	animation: shine 2s ease-in-out infinite;
+	background-color: rgb(230, 224, 224);
+	box-shadow: 0px 0px 8px 2px rgba(235, 235, 231, 0.301);
+	position: relative;
+	overflow: hidden;
+}
+
+.crater {
+	width: 20%;
+	height: 10%;
+	border-radius: 50%;
+	position: absolute;
+	background-color: transparent;
+	box-shadow: inset 2px 0 4px rgba(167, 167, 167, 0.685);
+}
+
+.crater:nth-of-type(1) {
+	top: 15%;
+	left: 40%;
+	width: 15%;
+	height: 15%;
+}
+
+.crater:nth-of-type(2) {
+	top: 70%;
+	left: 15%;
+	width: 20%;
+	height: 20%;
+}
+
+.crater:nth-of-type(3) {
+	top: 60%;
+	left: 80%;
+	width: 20%;
+	height: 20%;
+}
+
+.crater:nth-of-type(4) {
+	top: 30%;
+	left: 60%;
+	width: 10%;
+	height: 10%;
+}
+
+
+/*** RAIN ***/
+.rain.back-row{
+	display: none;
+}
+
+body.thunderstorm .rain.back-row{
+	display: inherit;
+}
+
+.rain-container {
+	display: none;
+}
+
+body.rain .rain-container, body.drizzle .rain-container, body.thunderstorm .rain-container {
+	display: inherit;
+}
+
+.rain-container {
+	position: absolute;
+	left: 0;
+	top: 50px;
+	width: 100%;
+	height: 300px;
+}
+
+.rain {
+	position: absolute;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 2;
+}
+
+.rain.back-row {
+	display: none;
+	z-index: 1;
+	bottom: 60px;
+	opacity: 0.5;
+}
+
+.drop {
+	position: absolute;
+	bottom: 100%;
+	width: 15px;
+	height: 120px;
+	pointer-events: none;
+	animation: drop 0.5s linear infinite;
+	top: 15vh;
+}
+
+@keyframes drop {
+	0% {
+		transform: translateY(0vh);
+	}
+	75% {
+		transform: translateY(65vh);
+	}
+	100% {
+		transform: translateY(65vh);
+	}
+}
+
+.stem {
+	width: 2px;
+	height: 60%;
+	margin-left: 7px;
+	background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25));
+	animation: stem 0.5s linear infinite;
+}
+
+@keyframes stem {
+	0% {
+		opacity: 1;
+	}
+	65% {
+		opacity: 1;
+	}
+	75% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+.splat {
+	width: 15px;
+	height: 10px;
+	border-top: 2px dotted rgba(255, 255, 255, 0.5);
+	border-radius: 50%;
+	opacity: 1;
+	transform: scale(0);
+	animation: splat 0.5s linear infinite;
+	display: none;
+}
+
+div.splat-toggle .splat {
+	display: block;
+}
+
+@keyframes splat {
+	0% {
+		opacity: 1;
+		transform: scale(0);
+	}
+	80% {
+		opacity: 1;
+		transform: scale(0);
+	}
+	90% {
+		opacity: 0.5;
+		transform: scale(1);
+	}
+	100% {
+		opacity: 0;
+		transform: scale(1.5);
+	}
+}
+
+#current .desc {
+	font-family: 'Roboto', sans-serif;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	text-align: right;
+	font-size: 1.5rem;
+	color: #cccccc7a;
+	padding: 0 1rem 1rem 0;
+}
+
+body.day #current .desc {
+	color: #e3ced3;
+}
+
+#currentTemp {
+	font-size: 8vw;
+	font-weight: 700;
+}
+
+.chartContainer{
+	height: 45vh;
+	max-width: 100%;
+	margin: 0px auto;
+}
+
+
+#hourlyChartContainer {
+	width: calc(100% - 1rem);
+	position: absolute;
+	top: 1rem;
+}
+
+#dailyChartContainer {
+	width: calc(100% - 1rem);
+	position: absolute;
+	bottom: 1rem;
+}
+
+
+/*** SNOW ***/
+
+body .snow-svg-contain{
+	display: none;
+}
+
+body.snow .snow-svg-contain{
+	display: inherit;
+}
+
+.snow-svg-contain {
+	max-width: 20vw;
+	width: 100%;
+	position: absolute;
+	top: 10vw;
+	width: 100%;
+	left: 0;
+	height: 20vw;
+}
+
+.snow-svg{
+	height: 100%;
+}
+  
+  .big-path,
+  .lightening,
+  .line,
+  .little-path {
+	stroke-miterlimit: 10;
+	stroke-width: 2;
+	stroke-linecap: round;
+	fill: none;
+  }
+  
+  .little-path {
+	stroke-width: 1;
+  }
+  
+  .snow-svg .snowflake {
+	transform-origin: 50% 50%;
+	transform: translateY(-10px);
+	opacity: 0;
+  }
+  .snow-svg .snowflake:nth-child(1) {
+	-webkit-animation: fall-counterclockwise 2422ms ease-in forwards infinite;
+			animation: fall-counterclockwise 2422ms ease-in forwards infinite;
+	-webkit-animation-delay: 0.2s;
+			animation-delay: 0.2s;
+  }
+  .snow-svg .snowflake:nth-child(2) {
+	-webkit-animation: fall-clockwise 3841ms ease-in forwards infinite;
+			animation: fall-clockwise 3841ms ease-in forwards infinite;
+	-webkit-animation-delay: 0.4s;
+			animation-delay: 0.4s;
+  }
+  .snow-svg .snowflake:nth-child(3) {
+	-webkit-animation: fall-counterclockwise 2871ms ease-in forwards infinite;
+			animation: fall-counterclockwise 2871ms ease-in forwards infinite;
+	-webkit-animation-delay: 0.6s;
+			animation-delay: 0.6s;
+  }
+  .snow-svg .snowflake:nth-child(4) {
+	-webkit-animation: fall-clockwise 2476ms ease-in forwards infinite;
+			animation: fall-clockwise 2476ms ease-in forwards infinite;
+	-webkit-animation-delay: 1.2s;
+			animation-delay: 1.2s;
+  }
+  .snow-svg .snowflake:nth-child(5) {
+	-webkit-animation: fall-counterclockwise 2367ms ease-in forwards infinite;
+			animation: fall-counterclockwise 2367ms ease-in forwards infinite;
+	-webkit-animation-delay: 1s;
+			animation-delay: 1s;
+  }
+  .snow-svg .snowflake:nth-child(6) {
+	-webkit-animation: fall-clockwise 3790ms ease-in forwards infinite;
+			animation: fall-clockwise 3790ms ease-in forwards infinite;
+	-webkit-animation-delay: 0.6s;
+			animation-delay: 0.6s;
+  }
+  .snow-svg .snowflake:nth-child(7) {
+	-webkit-animation: fall-counterclockwise 2849ms ease-in forwards infinite;
+			animation: fall-counterclockwise 2849ms ease-in forwards infinite;
+	-webkit-animation-delay: 0.7s;
+			animation-delay: 0.7s;
+  }
+  .snow-svg .snowflake:nth-child(8) {
+	-webkit-animation: fall-clockwise 2222ms ease-in forwards infinite;
+			animation: fall-clockwise 2222ms ease-in forwards infinite;
+	-webkit-animation-delay: 2.4s;
+			animation-delay: 2.4s;
+  }
+  .snow-svg .snowflake:nth-child(9) {
+	-webkit-animation: fall-counterclockwise 3817ms ease-in forwards infinite;
+			animation: fall-counterclockwise 3817ms ease-in forwards infinite;
+	-webkit-animation-delay: 1.8s;
+			animation-delay: 1.8s;
+  }
+  .snow-svg .snowflake:nth-child(10) {
+	-webkit-animation: fall-clockwise 2198ms ease-in forwards infinite;
+			animation: fall-clockwise 2198ms ease-in forwards infinite;
+	-webkit-animation-delay: 3s;
+			animation-delay: 3s;
+  }
+  .snow-svg .snowflake-path {
+	stroke: #BAE2E0;
+	stroke-width: 1;
+  }
+  
+  @-webkit-keyframes fall-clockwise {
+	0% {
+	  transform: translateY(-7px) rotate(0) scale(0.5);
+	  opacity: 0;
+	}
+	10% {
+	  transform: translateY(-4px) translateX(4px) rotate(-30deg) scale(0.7);
+	  opacity: 1;
+	}
+	45% {
+	  transform: translateY(5px) translateX(0px) rotate(30deg) scale(0.6);
+	}
+	50% {
+	  opacity: 0;
+	}
+	100% {
+	  opacity: 0;
+	  transform: translateY(10px) translateX(3px) scale(0.5);
+	}
+  }
+  
+  @keyframes fall-clockwise {
+	0% {
+	  transform: translateY(-7px) rotate(0) scale(0.5);
+	  opacity: 0;
+	}
+	10% {
+	  transform: translateY(-4px) translateX(4px) rotate(-30deg) scale(0.7);
+	  opacity: 1;
+	}
+	45% {
+	  transform: translateY(5px) translateX(0px) rotate(30deg) scale(0.6);
+	}
+	50% {
+	  opacity: 0;
+	}
+	100% {
+	  opacity: 0;
+	  transform: translateY(10px) translateX(3px) scale(0.5);
+	}
+  }
+  @-webkit-keyframes fall-counterclockwise {
+	0% {
+	  transform: translateY(-9px) rotate(0) scale(0.6);
+	  opacity: 0;
+	}
+	10% {
+	  transform: translateY(-4px) translateX(-4px) rotate(30deg) scale(0.7);
+	  opacity: 1;
+	}
+	40% {
+	  transform: translateY(8px) translateX(4px) rotate(-30deg) scale(0.8);
+	}
+	50% {
+	  opacity: 0;
+	}
+	100% {
+	  opacity: 0;
+	  transform: translateY(14px) translateX(-3px) scale(0.7);
+	}
+  }
+  @keyframes fall-counterclockwise {
+	0% {
+	  transform: translateY(-9px) rotate(0) scale(0.6);
+	  opacity: 0;
+	}
+	10% {
+	  transform: translateY(-4px) translateX(-4px) rotate(30deg) scale(0.7);
+	  opacity: 1;
+	}
+	40% {
+	  transform: translateY(8px) translateX(4px) rotate(-30deg) scale(0.8);
+	}
+	50% {
+	  opacity: 0;
+	}
+	100% {
+	  opacity: 0;
+	  transform: translateY(14px) translateX(-3px) scale(0.7);
+	}
+  }

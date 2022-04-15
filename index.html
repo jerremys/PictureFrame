@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Raspberrypower</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div id="overlay">
+        <div class="icon">
+            <div class="pauseicon"></div>
+        </div>
+        <div id="footer">
+            <span id="clock"></span>
+            <span class="separator">–</span>
+            <span id="temperature"><span id="temperature-val">??</span>°F</span>
+        </div>
+    </div>
+    <div id="carousel">
+        <iframe src="moon.html" id="moon-phase" data-temp="true" data-clock="true"></iframe>
+        <iframe src="clock/flip.html" data-temp="true"></iframe>
+        <iframe src="http://raspberrypower.lan:3000/d/QoPWoCkRk/all?autofitpanels&orgId=1&viewPanel=4&kiosk&fullscreen&refresh=1m" data-clock="true" data-temp="true"></iframe>
+        <iframe src="weather/weather.html" data-clock="true" class="weather" id="weather-frame"></iframe>
+        <iframe src="http://raspberrypower.lan:3000/d/8hz6lWCZz/energy-usage?autofitpanels&orgId=1&kiosk&fullscreen&refresh=1m"  data-clock="true" data-temp="true"></iframe>
+        <iframe src="clock/digital.html" data-temp="true"></iframe>
+        <iframe src="https://earth.nullschool.net/#current/wind/surface/level/orthographic=-94.43,42.23,726" data-clock="true" data-temp="true"></iframe>
+        <iframe src="http://raspberrypower:3000/d/ZiUAYTRRk/cost?orgId=1&from=now-30d&to=now&kiosk&autofitpanels&fullscreen&refresh=30s" data-clock="true" data-temp="true"></iframe>
+        <iframe src="weather/weather-static.html" data-clock="true"></iframe>
+        <iframe src="http://raspberrypower.lan:3000/d/lPhkxjkgk/bedrooms?autofitpanels&orgId=1&kiosk&fullscreen&refresh=1m" data-clock="true" data-temp="true"></iframe>
+    </div>
+    <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="js/jquery.touch.js"></script>
+    <script type="text/javascript" src="js/jquery.swipe.js"></script>
+    <script type="text/javascript" src="carousel.js"></script>
+</body>
+
+</html>
