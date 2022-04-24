@@ -1,5 +1,5 @@
 var weatherCard = {
-  apiKey: "",
+  apiKey: "cf076ec986dbdb91b88d82c341b3baaa",
   lat: 38.615338631871516,
   lon: -90.35343306524707,
   conditions: ['thunderstorm', 'drizzle', 'rain', 'snow', 'clear', 'clouds'],

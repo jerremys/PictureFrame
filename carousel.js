@@ -25,33 +25,22 @@ $( document ).ready(function(){
             const resp = $("#weather-frame")[0].contentWindow.postMessage('{"event":"command","func":"subscribe","args":""}', '*');
         };
 
-        const pauseYoutube = function(iframe){
+        const pauseFrame = function(iframe){
             iframe.contentWindow.postMessage('{"event":"command","func":"pause","args":""}', '*');
         };
 
-        const playYoutube = function(iframe){
+        const playFrame = function(iframe){
             iframe.contentWindow.postMessage('{"event":"command","func":"play","args":""}', '*');
-        };
-
-        const updateClock = function(first){
-            const now = new Date();
-            const hours = (new Date()).getHours();
-            const minutes = (new Date()).getMinutes();
-            $('#clock').text((hours > 12 ? hours - 12 : hours) + ':' + (minutes < 10 ? '0' + minutes : minutes));
         };
 
         const setMoonPhase = function(data){
             document.getElementById("moon-phase").contentWindow.postMessage('{"event":"command","func":"phase","args":' + data + '}', '*');
-        }
+        };
 
         const updateWeather = function (data) {
             $('#temperature-val').text(Math.trunc(data.temp));
             setMoonPhase(data.moon_phase);
         };
-
-        const updateFooter = function($frame){
-            $("body").toggleClass('clock', $frame.data('clock') == true).toggleClass('temp', $frame.data('temp') == true);
-        }
 
         async function nextFrame(direction){
             const $activeFrame = $('#carousel .active');
@@ -74,14 +63,12 @@ $( document ).ready(function(){
             }
 
             if($nextFrame.data("playable") === true){
-                playYoutube($nextFrame[0]);
+                playFrame($nextFrame[0]);
 
                 if($nextFrame.data("youtube") === true){
                     await sleep(700);
                 }
             }
-
-            updateFooter($nextFrame);
 
             $activeFrame.addClass('previous');
             $nextFrame.addClass('active');
@@ -89,12 +76,10 @@ $( document ).ready(function(){
             setTimeout(function(){
                 $activeFrame.removeClass('previous active');
                 if($activeFrame.data("playable") === true){
-                    pauseYoutube($activeFrame[0]);
+                    pauseFrame($activeFrame[0]);
                 }
             }, 800);
-
-
-        };
+        }
 
         const sleep = function(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
@@ -103,7 +88,7 @@ $( document ).ready(function(){
         const togglePause = function(){
             paused = !paused;
             $('body').toggleClass("paused", paused);
-        }
+        };
 
         const startInterval = function(){
             timer = window.setInterval(function(){
@@ -111,24 +96,8 @@ $( document ).ready(function(){
                     return;
                 }
                 nextFrame(DIRECTION.FORWARD);
-            }, pageTime)
-			
-			var now = new Date();
-			var remainingMs = ((60 - (new Date()).getSeconds()) * 1000) + 100;
-			
-			// Wait until the top of the minute to start updating the clock then update it every 60 seconds
-			setTimeout(function() {
-				window.setInterval(updateClock, 60000);
-			}, remainingMs);
-			
-			console.log('Will start timer in: ' + remainingMs);
-			
-			// reload every morning at 0600
-			var millisTill = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 6, 0, 0, 0) - now;
-			setTimeout(window.location.reload, millisTill);
-			console.log('Will reload in: ' + millisTill);
-
-		}
+            }, pageTime);
+		};
 
 
         $("#overlay").on('click', togglePause).on('touchend', togglePause).swipe(
@@ -152,11 +121,9 @@ $( document ).ready(function(){
                 distance: 100
             });
 
-        updateFooter($("iframe.active"));
         startInterval();
-        updateClock(true);
 
         // Wait a bit for the page to load
         setTimeout(subscribeToWeather, 5000);
     }
-)
+);
